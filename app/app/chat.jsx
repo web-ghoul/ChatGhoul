@@ -26,7 +26,9 @@ const Chat = () => {
       {users ? (
         <FlatList
           data={users}
-          renderItem={({ item }) => <UserView receiver={item} />}
+          renderItem={({ item, index }) => (
+            <UserView key={index} receiver={item} />
+          )}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{
             paddingVertical: hp(1),

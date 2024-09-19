@@ -1,13 +1,5 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  FlatList,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from "react-native";
-import { useContext, useEffect, useRef, useState } from "react";
+import { View, Text, ImageBackground, FlatList } from "react-native";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import Forms from "../../forms/Forms";
 import {
   heightPercentageToDP as hp,
@@ -19,8 +11,9 @@ import { AppContext } from "../../contexts/AppContext";
 import Message from "../../components/Message/Message";
 import { globalStyles } from "../../styles/globalStyles";
 import { AuthContext } from "../../contexts/AuthContext";
-import { store } from "../../storages/MMKV";
 import FilesModal from "../../modals/FilesModal";
+import MessagesDate from "../../components/Message/MessagesDate";
+import { useLocalSearchParams } from "expo-router";
 
 const Room = () => {
   const { handleGetMessages } = useRoom();
@@ -42,6 +35,24 @@ const Room = () => {
       });
     }
   };
+
+  const groupMessagesByDate = (messages) => {
+    return messages.reduce((acc, message) => {
+      const date = new Date(message.createdAt.seconds * 1000).toDateString();
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(message);
+      return acc;
+    }, {});
+  };
+
+  const groupedMessages = groupMessagesByDate(messages);
+
+  const messageSections = Object.keys(groupedMessages).map((date) => ({
+    date,
+    messages: groupedMessages[date],
+  }));
 
   useEffect(() => {
     handleGetMessages();
@@ -97,9 +108,20 @@ const Room = () => {
       ) : (
         <FlatList
           ref={flatListRef}
-          data={messages}
+          data={messageSections}
           renderItem={({ item, index }) => (
-            <Message message={item} index={index} />
+            <View
+              key={index}
+              className={`flex-1 justify-center`}
+              style={{
+                gap: hp(1),
+              }}
+            >
+              <MessagesDate date={item.date} />
+              {item.messages.map((message, index) => (
+                <Message key={index} message={message} index={index} />
+              ))}
+            </View>
           )}
           keyExtractor={(item) => item.id}
           onLayout={handleFlatListLayout}

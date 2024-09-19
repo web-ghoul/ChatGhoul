@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { BackHandler, Image, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { AppContext } from "../../contexts/AppContext";
 import {
   heightPercentageToDP as hp,
@@ -9,6 +9,7 @@ import { ModalsContext } from "../../contexts/ModalsContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { globalStyles } from "../../styles/globalStyles";
+import { Zoomable } from "@likashefqet/react-native-image-zoom";
 
 const ViewImage = () => {
   const { imageURL, chatter } = useContext(AppContext);
@@ -42,20 +43,22 @@ const ViewImage = () => {
           </TouchableOpacity>
         )}
       </View>
-      <Image
-        source={
-          imageURL
-            ? { uri: imageURL }
-            : chatter && chatter.gender === "female"
-            ? require("../../assets/images/female.png")
-            : require("../../assets/images/male.png")
-        }
-        resizeMode="contain"
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+      <Zoomable>
+        <Image
+          source={
+            imageURL
+              ? { uri: imageURL }
+              : chatter && chatter.gender === "female"
+              ? require("../../assets/images/female.png")
+              : require("../../assets/images/male.png")
+          }
+          resizeMode="contain"
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      </Zoomable>
     </View>
   );
 };

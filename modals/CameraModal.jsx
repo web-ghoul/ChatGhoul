@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import PickUpPhoto from "../components/PickUpPhoto/PickUpPhoto";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const CameraModal = () => {
   const { openCameraModal, handleCloseCameraModal } = useContext(ModalsContext);
@@ -29,9 +28,7 @@ const CameraModal = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ gap: hp(3) }}
       >
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <PickUpPhoto />
-        </GestureHandlerRootView>
+        <PickUpPhoto />
       </KeyboardAvoidingView>
     </Modal>
   );

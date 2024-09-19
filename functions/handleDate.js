@@ -4,7 +4,6 @@ export const handleMessageTime = (dateObj) => {
   if (!dateObj) {
     return "";
   }
-
   let timestamp;
   if (typeof dateObj === "string") {
     timestamp = new Date(dateObj);
@@ -15,6 +14,5 @@ export const handleMessageTime = (dateObj) => {
   } else {
     return "";
   }
-
   return format(timestamp, "h:mm a");
 };

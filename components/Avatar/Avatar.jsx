@@ -1,16 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import React, { useContext } from "react";
-import {
-  Image,
-  Touchable,
-  TouchableHighlight,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { AuthContext } from "../../contexts/AuthContext";
-import useImageHandler from "../../hooks/useImageHandler";
-import Loading from "../Loading/Loading";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { ModalsContext } from "../../contexts/ModalsContext";
 import { AppContext } from "../../contexts/AppContext";

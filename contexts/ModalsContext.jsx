@@ -68,6 +68,16 @@ const ModalsProvider = ({ children }) => {
     setOpenShowImageModal(false);
   };
 
+  const [openBackDropModal, setOpenBackDropModal] = useState(false);
+
+  const handleOpenBackDropModal = () => {
+    setOpenBackDropModal(true);
+  };
+
+  const handleCloseBackDropModal = () => {
+    setOpenBackDropModal(false);
+  };
+
   return (
     <ModalsContext.Provider
       value={{
@@ -89,6 +99,9 @@ const ModalsProvider = ({ children }) => {
         openShowImageModal,
         handleOpenShowImageModal,
         handleCloseShowImageModal,
+        openBackDropModal,
+        handleCloseBackDropModal,
+        handleOpenBackDropModal,
       }}
     >
       {children}

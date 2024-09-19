@@ -19,7 +19,7 @@ const UserView = ({ receiver }) => {
 
   return (
     <View
-      className={`flex-row flex-1 justify-center items-center`}
+      className={`flex-row justify-start items-center`}
       style={[{ gap: wp(4) }, globalStyles.container]}
     >
       <TouchableOpacity
@@ -42,20 +42,20 @@ const UserView = ({ receiver }) => {
             }`
           );
         }}
-        className={`flex-1 h-full w-full justify-center`}
+        className={`w-full justify-center items-start`}
         style={{ gap: hp(0.5) }}
       >
         <Text className={`text-white font-[800]`} style={{ fontSize: wp(4.5) }}>
           {receiver.username}
         </Text>
-        {/* <Text
+        <Text
           className={`text-gray-300 font-[600] `}
           style={{ fontSize: wp(3.5) }}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           Hello There!...
-        </Text> */}
+        </Text>
       </TouchableOpacity>
     </View>
   );

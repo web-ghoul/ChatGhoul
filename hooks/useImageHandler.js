@@ -14,6 +14,8 @@ const useImageHandler = () => {
     handleCloseShowImageModal,
     handleCloseUploadAvatarModal,
     handleCloseCameraModal,
+    handleOpenBackDropModal,
+    handleCloseBackDropModal,
   } = useContext(ModalsContext);
 
   const handlePickImage = async () => {
@@ -33,6 +35,7 @@ const useImageHandler = () => {
     if (!imagePath) {
       return;
     }
+    handleOpenBackDropModal();
     const response = await fetch(imagePath);
     const blob = await response.blob();
     const storageRef = ref(storage, `users/${user.id}/avatar`);
@@ -44,10 +47,11 @@ const useImageHandler = () => {
       const newUser = { ...user };
       newUser.avatar = downloadURL;
       setUser(newUser);
-      handleAlert("Uploaded", "Avatar is Changed Successfully", "success");
+      handleAlert("Uploaded ✅", "Avatar is Changed Successfully", "success");
       handleCloseShowImageModal();
       handleCloseCameraModal();
       handleCloseUploadAvatarModal();
+      handleCloseBackDropModal();
     });
   };
 

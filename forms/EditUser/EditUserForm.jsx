@@ -27,17 +27,7 @@ import UserModal from "../../modals/UserModal";
 const EditUserForm = ({ formik }) => {
   const { handleSubmit } = formik;
   const { loading } = useContext(AuthContext);
-  const { openUserModal, modalSlideAnimate } = useContext(ModalsContext);
   const { editUserFormType } = useContext(AppContext);
-
-  useEffect(() => {
-    if (openUserModal) {
-      Animated.spring(modalSlideAnimate, {
-        toValue: 0,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [openUserModal]);
 
   return (
     <UserModal>

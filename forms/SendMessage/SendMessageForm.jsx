@@ -20,40 +20,16 @@ const SendMessageForm = ({ formik }) => {
   const { handleOpenFilesModal, handleOpenCameraModal } =
     useContext(ModalsContext);
   const inputRef = useRef();
-  const [openEmoji, setOpenEmoji] = useState(false);
   const [lines, setLines] = useState(1);
   const [h, setH] = useState(0);
-
-  const handleOpenEmojiPicker = () => {
-    setOpenEmoji(true);
-    Keyboard.dismiss();
-  };
-
-  const handleCloseEmojiPicker = () => {
-    setOpenEmoji(false);
-  };
-
-  const handleSelectEmoji = (emoji) => {
-    inputRef.current.values = inputRef.current.values + emoji;
-  };
 
   const handleOpenKeyboard = () => {
     if (inputRef && inputRef.current) {
       handleCloseEmojiPicker();
       inputRef.current.focus();
-      console.log(1);
+      toEnd();
     }
   };
-
-  const handleToggleEmojiAndKeyboard = () => {
-    if (openEmoji) {
-      handleOpenKeyboard();
-    } else {
-      handleOpenEmojiPicker();
-    }
-  };
-
-  const handleRemoveLast = () => {};
 
   useEffect(() => {
     if (!formik.values.message) {
@@ -170,14 +146,6 @@ const SendMessageForm = ({ formik }) => {
           )}
         </View>
       </View>
-      {openEmoji && (
-        <ChooseEmoji
-          open={openEmoji}
-          handleSelect={handleSelectEmoji}
-          handleClose={handleCloseEmojiPicker}
-          handleRemove={handleRemoveLast}
-        />
-      )}
     </View>
   );
 };

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { ModalsContext } from "../contexts/ModalsContext";
 import ChooseAvatar from "../components/ChooseAvatar/ChooseAvatar";
 import {
-  Animated,
   KeyboardAvoidingView,
   Modal,
   Platform,

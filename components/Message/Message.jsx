@@ -5,9 +5,9 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { AuthContext } from "../../contexts/AuthContext";
-import UserImage from "../UserImage/UserImage";
 import { AppContext } from "../../contexts/AppContext";
 import { handleMessageTime } from "../../functions/handleDate";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Message = ({ message, index }) => {
   const { user } = useContext(AuthContext);
@@ -60,14 +60,36 @@ const Message = ({ message, index }) => {
         >
           {message.message}
         </Text>
-        <Text
-          className={`text-gray-300 text-right`}
-          style={{
-            fontSize: wp(2.5),
-          }}
+        <View
+          className={`flex-row justify-end items-center`}
+          style={{ gap: wp(2) }}
         >
-          {handleMessageTime(message.updatedAt) || "sending..."}
-        </Text>
+          <Text
+            className={`text-gray-300 text-right`}
+            style={{
+              fontSize: wp(2.5),
+            }}
+          >
+            {handleMessageTime(message.updatedAt) || "sending..."}
+          </Text>
+          {handleMessageTime(message.updatedAt) ? (
+            <View className={`flex-row justify-center items-center`}>
+              {message?.seen ? (
+                <Ionicons
+                  name="checkmark-done-sharp"
+                  size={16}
+                  color="#00bce4"
+                />
+              ) : (
+                <Ionicons name="checkmark-done-sharp" size={16} color="#ddd" />
+              )}
+            </View>
+          ) : (
+            <View>
+              <Ionicons name="checkbox-outline" size={14} color="#ddd" />
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );

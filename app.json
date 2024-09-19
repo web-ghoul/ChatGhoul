@@ -17,6 +17,9 @@
       "infoPlist": {
         "NSCameraUsageDescription": "Allow the app to access your camera",
         "NSMicrophoneUsageDescription": "Allow the app to access your microphone"
+      },
+      "config": {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
@@ -35,10 +38,6 @@
     "web": {
       "favicon": "./assets/images/logo.gif"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font",
-      "expo-camera"
-    ]
+    "plugins": ["expo-router", "expo-font", "expo-camera", "expo-secure-store"]
   }
 }

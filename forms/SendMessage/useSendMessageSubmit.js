@@ -22,20 +22,22 @@ const useSendMessageSubmit = () => {
     if (!(chatter && user)) {
       return;
     }
+    const { message } = values;
     const chatUID =
       user.id > chatter.id
         ? user.id + "_" + chatter.id
         : chatter.id + "_" + user.id;
-    const messageUID = chatUID + "_" + message + "_" + String(new Date());
+    const messageUID =
+      chatUID + "_" + message + "_" + String(Math.random() * Math.random());
     const chatRef = doc(db, "chats", chatUID);
     const messageRef = doc(db, "messages", messageUID);
-    const { message } = values;
     const messageData = {
-      id: messageUID + String(new Date()),
+      id: messageUID,
       chat: chatUID,
       message,
       sender: user.id,
       receiver: chatter.id,
+      seen: false,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
