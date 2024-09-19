@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const AvatarModal = ({ children }) => {
+const AvatarModal = () => {
   const { openAvatarModal, handleCloseAvatarModal } = useContext(ModalsContext);
 
   return (

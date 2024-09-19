@@ -38,13 +38,12 @@ const Room = () => {
     if (flatListRef.current && messages.length > 0) {
       flatListRef.current.scrollToOffset({
         animated: true,
-        offset: flatListHeight * 2,
+        offset: flatListHeight * 10,
       });
     }
   };
 
   useEffect(() => {
-    // console.log(store.getString(chatter.id));
     handleGetMessages();
   }, []);
 

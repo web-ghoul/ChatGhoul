@@ -46,7 +46,6 @@ const SendMessageForm = ({ formik }) => {
   };
 
   const handleToggleEmojiAndKeyboard = () => {
-    console.log(openEmoji);
     if (openEmoji) {
       handleOpenKeyboard();
     } else {
@@ -65,7 +64,7 @@ const SendMessageForm = ({ formik }) => {
   return (
     <View>
       <View
-        className={`flex-1 justify-between items-end flex-row `}
+        className={`flex-1 justify-between items-end flex-row !z-[10000]`}
         style={{ gap: wp(2), paddingHorizontal: wp(1), paddingVertical: hp(1) }}
       >
         <View
@@ -83,13 +82,9 @@ const SendMessageForm = ({ formik }) => {
         >
           <TouchableOpacity
             className={`justify-center items-center p-2`}
-            onPress={handleToggleEmojiAndKeyboard}
+            onPress={handleOpenKeyboard}
           >
-            {openEmoji ? (
-              <FontAwesome name="keyboard-o" size={22} color="#999" />
-            ) : (
-              <Fontisto name="smiley" size={22} color="#999" />
-            )}
+            <FontAwesome name="keyboard-o" size={22} color="#999" />
           </TouchableOpacity>
           <TextInput
             ref={inputRef}
@@ -177,7 +172,6 @@ const SendMessageForm = ({ formik }) => {
       </View>
       {openEmoji && (
         <ChooseEmoji
-          formik={formik}
           open={openEmoji}
           handleSelect={handleSelectEmoji}
           handleClose={handleCloseEmojiPicker}

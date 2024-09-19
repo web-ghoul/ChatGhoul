@@ -22,7 +22,7 @@ const Chat = () => {
   }, [user]);
 
   return (
-    <View className={`bg-primary flex-1 justify-center items-center`}>
+    <View className={`bg-primary flex-1 justify-center items-stretch`}>
       {users ? (
         <FlatList
           data={users}

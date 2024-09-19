@@ -9,45 +9,55 @@ import { useRouter } from "expo-router";
 import { AppContext } from "../../contexts/AppContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { globalStyles } from "../../styles/globalStyles";
+import { ModalsContext } from "../../contexts/ModalsContext";
 
 const UserView = ({ receiver }) => {
   const router = useRouter();
-  const { setChatter } = useContext(AppContext);
+  const { setChatter, setImageURL } = useContext(AppContext);
   const { user } = useContext(AuthContext);
+  const { handleOpenShowImageModal } = useContext(ModalsContext);
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        setChatter(receiver);
-        router.push(
-          `/room/${
-            user.id > receiver.id
-              ? user.id + "_" + receiver.id
-              : receiver.id + "_" + user.id
-          }`
-        );
-      }}
-      className={`flex-row justify-stretch items-center`}
+    <View
+      className={`flex-row flex-1 justify-center items-center`}
       style={[{ gap: wp(4) }, globalStyles.container]}
     >
-      <UserImage avatar={receiver.avatar} gender={receiver.gender} />
-      <View className={`flex-col items-start `} style={{ gap: hp(0.5) }}>
-        <Text
-          className={`text-white font-[800] `}
-          style={{ fontSize: wp(4.5) }}
-        >
+      <TouchableOpacity
+        onPress={() => {
+          setImageURL(receiver.avatar);
+          handleOpenShowImageModal({ title: receiver.username, edit: false });
+          setChatter(receiver);
+        }}
+      >
+        <UserImage avatar={receiver.avatar} gender={receiver.gender} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setChatter(receiver);
+          router.push(
+            `/room/${
+              user.id > receiver.id
+                ? user.id + "_" + receiver.id
+                : receiver.id + "_" + user.id
+            }`
+          );
+        }}
+        className={`flex-1 h-full w-full justify-center`}
+        style={{ gap: hp(0.5) }}
+      >
+        <Text className={`text-white font-[800]`} style={{ fontSize: wp(4.5) }}>
           {receiver.username}
         </Text>
-        <Text
+        {/* <Text
           className={`text-gray-300 font-[600] `}
           style={{ fontSize: wp(3.5) }}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           Hello There!...
-        </Text>
-      </View>
-    </TouchableOpacity>
+        </Text> */}
+      </TouchableOpacity>
+    </View>
   );
 };
 

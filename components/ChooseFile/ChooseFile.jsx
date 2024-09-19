@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import UserModal from "../../modals/UserModal";
 import { Text, TouchableOpacity, View } from "react-native";
 import {
@@ -11,10 +11,12 @@ import ChooseFileHelperButton from "./ChooseFileHelperButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useUploadFiles from "../../hooks/useUploadFiles";
 import useImageHandler from "../../hooks/useImageHandler";
+import { ModalsContext } from "../../contexts/ModalsContext";
 
 const ChangeFile = () => {
   const { handlePickDocument } = useUploadFiles();
   const { handlePickImage } = useImageHandler();
+  const { handleOpenCameraModal } = useContext(ModalsContext);
 
   return (
     <View
@@ -34,7 +36,7 @@ const ChangeFile = () => {
       />
       <ChooseFileHelperButton
         title={"Camera"}
-        press={() => {}}
+        press={handleOpenCameraModal}
         icon={<Feather name="camera" size={24} color="#12b0be" />}
       />
       <ChooseFileHelperButton

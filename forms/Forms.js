@@ -61,7 +61,7 @@ const Forms = ({ type }) => {
   ) : type === "editUser" ? (
     <EditUserForm formik={formik} />
   ) : (
-    <SendMessageForm formik={formik} />
+    type === "sendMessage" && <SendMessageForm formik={formik} />
   );
 };
 

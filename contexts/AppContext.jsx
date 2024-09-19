@@ -7,6 +7,8 @@ const AppProvider = ({ children }) => {
   const [chatter, setChatter] = useState(null);
   const [messages, setMessages] = useState([]);
   const [editUserFormType, setEditUserFormType] = useState("");
+  const [imageURL, setImageURL] = useState("");
+  const [photoPath, setPhotoPath] = useState("");
 
   return (
     <AppContext.Provider
@@ -19,6 +21,10 @@ const AppProvider = ({ children }) => {
         setChatter,
         messages,
         setMessages,
+        imageURL,
+        setImageURL,
+        photoPath,
+        setPhotoPath,
       }}
     >
       {children}

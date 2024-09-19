@@ -13,7 +13,7 @@ import useImageHandler from "../../hooks/useImageHandler";
 const ChooseAvatar = () => {
   const { handleOpenCameraModal, handleCloseAvatarModal } =
     useContext(ModalsContext);
-  const { handlePickImage } = useImageHandler();
+  const { handleChooseAndUploadImage } = useImageHandler();
 
   return (
     <View
@@ -37,10 +37,7 @@ const ChooseAvatar = () => {
         />
         <ChooseAvatarHelperButton
           title={"Gallery"}
-          press={() => {
-            handlePickImage();
-            handleCloseAvatarModal();
-          }}
+          press={handleChooseAndUploadImage}
           icon={<FontAwesome name="photo" size={24} color="#12b0be" />}
         />
       </View>

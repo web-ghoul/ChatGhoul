@@ -61,7 +61,7 @@ const Message = ({ message, index }) => {
           {message.message}
         </Text>
         <Text
-          className={`text-gray-300`}
+          className={`text-gray-300 text-right`}
           style={{
             fontSize: wp(2.5),
           }}

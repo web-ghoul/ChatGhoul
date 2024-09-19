@@ -28,6 +28,16 @@ const ModalsProvider = ({ children }) => {
     setOpenAvatarModal(false);
   };
 
+  const [openUploadAvatarModal, setOpenUploadAvatarModal] = useState(false);
+
+  const handleOpenUploadAvatarModal = () => {
+    setOpenUploadAvatarModal(true);
+  };
+
+  const handleCloseUploadAvatarModal = () => {
+    setOpenUploadAvatarModal(false);
+  };
+
   const [openFilesModal, setOpenFilesModal] = useState(false);
 
   const handleOpenFilesModal = () => {
@@ -48,6 +58,16 @@ const ModalsProvider = ({ children }) => {
     setOpenCameraModal(false);
   };
 
+  const [openShowImageModal, setOpenShowImageModal] = useState(false);
+
+  const handleOpenShowImageModal = () => {
+    setOpenShowImageModal(true);
+  };
+
+  const handleCloseShowImageModal = () => {
+    setOpenShowImageModal(false);
+  };
+
   return (
     <ModalsContext.Provider
       value={{
@@ -57,12 +77,18 @@ const ModalsProvider = ({ children }) => {
         openAvatarModal,
         handleOpenAvatarModal,
         handleCloseAvatarModal,
+        openUploadAvatarModal,
+        handleOpenUploadAvatarModal,
+        handleCloseUploadAvatarModal,
         openFilesModal,
         handleOpenFilesModal,
         handleCloseFilesModal,
         openCameraModal,
         handleOpenCameraModal,
         handleCloseCameraModal,
+        openShowImageModal,
+        handleOpenShowImageModal,
+        handleCloseShowImageModal,
       }}
     >
       {children}

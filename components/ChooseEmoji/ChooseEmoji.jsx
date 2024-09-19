@@ -4,18 +4,13 @@ import { View } from "react-native";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import DeleteButton from "./ChooseEmojiHelperButtons";
 
-const ChooseEmoji = ({
-  formik,
-  open,
-  handleClose,
-  handleSelect,
-  handleRemove,
-}) => {
+const ChooseEmoji = ({ open, handleClose, handleSelect, handleRemove }) => {
   return (
     <View
-      className={`relative left-0 bottom-0 bg-primary`}
+      className={`flex-1 left-0 bottom-0 bg-primary`}
       style={{
         height: hp(41),
+        zIndex: -1,
       }}
     >
       <EmojiPicker
@@ -28,7 +23,7 @@ const ChooseEmoji = ({
         categoryPosition="top"
         customButtons={[<DeleteButton press={handleRemove} />]}
         theme={{
-          backdrop: "rgba(0,0,0,0.3)",
+          backdrop: "rgba(0,0,0,0)",
           knob: "#12b0be",
           container: "#162832",
           header: "#fff",
