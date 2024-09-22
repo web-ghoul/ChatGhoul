@@ -8,10 +8,8 @@ const useUploadFiles = () => {
 
   const handlePickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
-    console.log(result);
     if (result.type === "success") {
-      setDocument(result);
-      console.log(result);
+      return result;
     }
   };
 

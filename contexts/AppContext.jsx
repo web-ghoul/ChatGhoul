@@ -8,7 +8,10 @@ const AppProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [editUserFormType, setEditUserFormType] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [media, setMedia] = useState(null);
   const [photoPath, setPhotoPath] = useState("");
+  const [selectedMessages, setSelectedMessages] = useState([]);
+  const [editableMessage, setEditableMessage] = useState(null);
 
   return (
     <AppContext.Provider
@@ -23,8 +26,14 @@ const AppProvider = ({ children }) => {
         setMessages,
         imageURL,
         setImageURL,
+        media,
+        setMedia,
         photoPath,
         setPhotoPath,
+        editableMessage,
+        setEditableMessage,
+        selectedMessages,
+        setSelectedMessages,
       }}
     >
       {children}

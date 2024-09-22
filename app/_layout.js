@@ -7,6 +7,7 @@ import AuthProvider from "../contexts/AuthContext";
 import ModalsProvider from "../contexts/ModalsContext";
 import "../global.css";
 import BackDropModal from "../modals/BackDropModal";
+import ShowAvatarModal from "../modals/ShowAvatarModal";
 
 export default function Root() {
   return (
@@ -18,6 +19,7 @@ export default function Root() {
             <Toast />
             <StatusBar style="light" backgroundColor="#162832" />
             <BackDropModal />
+            <ShowAvatarModal />
           </AuthProvider>
         </ModalsProvider>
       </AppProvider>

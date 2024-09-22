@@ -8,7 +8,7 @@ import {
 import ViewImage from "../components/ViewImage/ViewImage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-const ShowImageModal = () => {
+const ShowAvatarModal = () => {
   const { openShowImageModal } = useContext(ModalsContext);
 
   return (
@@ -18,12 +18,10 @@ const ShowImageModal = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ gap: hp(3), height: heightPercentageToDP(100) }}
       >
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ViewImage />
-        </GestureHandlerRootView>
+        <ViewImage />
       </KeyboardAvoidingView>
     </Modal>
   );
 };
 
-export default ShowImageModal;
+export default ShowAvatarModal;

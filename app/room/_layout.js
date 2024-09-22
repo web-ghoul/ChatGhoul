@@ -9,6 +9,8 @@ import {
 import RoomNavbar from "../../components/Navbars/RoomNavbar";
 import TabIcon from "../../components/TabIcon/TabIcon";
 import CameraModal from "../../modals/CameraModal";
+import MediaModal from "../../modals/MediaModal";
+import MessageModal from "../../modals/MessageModal";
 
 const _layout = () => {
   return (
@@ -59,6 +61,8 @@ const _layout = () => {
       </Stack>
       <StatusBar style="light" />
       <CameraModal />
+      <MessageModal />
+      <MediaModal />
     </View>
   );
 };

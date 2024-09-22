@@ -11,7 +11,6 @@ import ChatsNavbar from "../../components/Navbars/ChatsNavbar";
 import ProfileNavbar from "../../components/Navbars/ProfileNavbar";
 import TabIcon from "../../components/TabIcon/TabIcon";
 import CameraModal from "../../modals/CameraModal";
-import ShowImageModal from "../../modals/ShowImageModal";
 import UploadAvatarModal from "../../modals/UploadAvatarModal";
 
 const _layout = () => {
@@ -74,7 +73,6 @@ const _layout = () => {
       </Tabs>
       <StatusBar style="light" />
       <CameraModal />
-      <ShowImageModal />
       <UploadAvatarModal />
     </View>
   );

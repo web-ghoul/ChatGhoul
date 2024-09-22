@@ -20,8 +20,9 @@ const Forms = ({ type }) => {
   const { RegisterInitialValues, RegisterSchema } = useRegisterSchema();
   const { handleEditUser } = useEditUserSubmit();
   const { EditUserInitialValues, EditUserSchema } = useEditUserSchema();
-  const { handleSendMessage } = useSendMessageSubmit();
-  const { SendMessageInitialValues, SendMessageSchema } =
+  const { handleSendMessage, handleEditMessage, handleSendMedia } =
+    useSendMessageSubmit();
+  const { SendMessageInitialValues, SendMessageSchema, SendMediaSchema } =
     useSendMessageSchema();
 
   const formik = useFormik({
@@ -32,7 +33,10 @@ const Forms = ({ type }) => {
         ? RegisterInitialValues
         : type == "editUser"
         ? EditUserInitialValues
-        : type === "sendMessage" && SendMessageInitialValues,
+        : (type === "sendMessage" ||
+            type === "sendMedia" ||
+            type === "editMessage") &&
+          SendMessageInitialValues,
     validationSchema:
       type === "login"
         ? LoginSchema
@@ -40,7 +44,9 @@ const Forms = ({ type }) => {
         ? RegisterSchema
         : type == "editUser"
         ? EditUserSchema
-        : type === "sendMessage" && SendMessageSchema,
+        : type === "sendMessage" || type === "editMessage"
+        ? SendMessageSchema
+        : type === "sendMedia" && SendMediaSchema,
     onSubmit: (values, { resetForm }) => {
       if (type === "login") {
         handleLogin(values);
@@ -50,6 +56,10 @@ const Forms = ({ type }) => {
         handleEditUser(values);
       } else if (type === "sendMessage") {
         handleSendMessage(values, resetForm);
+      } else if (type === "sendMedia") {
+        handleSendMedia(values, resetForm);
+      } else if (type === "editMessage") {
+        handleEditMessage(values, resetForm);
       }
     },
   });
@@ -61,7 +71,9 @@ const Forms = ({ type }) => {
   ) : type === "editUser" ? (
     <EditUserForm formik={formik} />
   ) : (
-    type === "sendMessage" && <SendMessageForm formik={formik} />
+    (type === "sendMessage" ||
+      type === "sendMedia" ||
+      type === "editMessage") && <SendMessageForm type={type} formik={formik} />
   );
 };
 

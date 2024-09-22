@@ -17,7 +17,7 @@ import { useLocalSearchParams } from "expo-router";
 
 const Room = () => {
   const { handleGetMessages } = useRoom();
-  const { messages } = useContext(AppContext);
+  const { messages, setSelectedMessages } = useContext(AppContext);
   const { loading } = useContext(AuthContext);
   const flatListRef = useRef(null);
   const [flatListHeight, setFlatListHeight] = useState(0);
@@ -56,6 +56,7 @@ const Room = () => {
 
   useEffect(() => {
     handleGetMessages();
+    setSelectedMessages([]);
   }, []);
 
   return (
@@ -65,7 +66,7 @@ const Room = () => {
       resizeMode="cover"
     >
       <View
-        className={`absolute  left-0 top-0 right-0`}
+        className={`absolute left-0 top-0 right-0 `}
         style={{
           backgroundColor:
             messages.length > 0 ? "rgba(0,0,0,0.65)" : "rgba(0,0,0,0.8)",

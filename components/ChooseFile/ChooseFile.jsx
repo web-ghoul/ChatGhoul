@@ -12,11 +12,28 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import useUploadFiles from "../../hooks/useUploadFiles";
 import useImageHandler from "../../hooks/useImageHandler";
 import { ModalsContext } from "../../contexts/ModalsContext";
+import { AppContext } from "../../contexts/AppContext";
+import useMediaHandler from "../../hooks/useMediaHandler";
 
 const ChangeFile = () => {
-  const { handlePickDocument } = useUploadFiles();
-  const { handlePickImage } = useImageHandler();
-  const { handleOpenCameraModal } = useContext(ModalsContext);
+  const { handleChooseMedia } = useMediaHandler();
+  const { handleOpenCameraModal, handleCloseFilesModal, handleOpenMediaModal } =
+    useContext(ModalsContext);
+  const { setMedia } = useContext(AppContext);
+
+  const handleChooseImage = async () => {
+    const path = await handleChooseMedia("image");
+    setMedia(path);
+    handleCloseFilesModal();
+    handleOpenMediaModal();
+  };
+
+  const handleChooseFile = async () => {
+    const path = await handleChooseMedia("file");
+    setMedia(path);
+    handleCloseFilesModal();
+    handleOpenMediaModal();
+  };
 
   return (
     <View
@@ -29,7 +46,7 @@ const ChangeFile = () => {
     >
       <ChooseFileHelperButton
         title={"Document"}
-        press={handlePickDocument}
+        press={handleChooseFile}
         icon={
           <Ionicons name="document-text-outline" size={24} color="#12b0be" />
         }
@@ -41,7 +58,7 @@ const ChangeFile = () => {
       />
       <ChooseFileHelperButton
         title={"Gallery"}
-        press={handlePickImage}
+        press={handleChooseImage}
         icon={<FontAwesome name="photo" size={24} color="#12b0be" />}
       />
     </View>

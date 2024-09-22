@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import Avatar from "../../components/Avatar/Avatar";
 import {
@@ -12,9 +12,15 @@ import SpecialTitle from "../../components/SpecialTitle/SpecialTitle";
 import Forms from "../../forms/Forms";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import AvatarModal from "../../modals/AvatarModal";
+import { AppContext } from "../../contexts/AppContext";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
+  const { setChatter } = useContext(AppContext);
+
+  useEffect(() => {
+    setChatter(null);
+  }, []);
 
   return (
     <ScrollView className={`bg-primary`}>

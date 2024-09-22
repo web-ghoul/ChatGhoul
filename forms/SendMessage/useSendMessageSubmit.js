@@ -2,14 +2,31 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ModalsContext } from "../../contexts/ModalsContext";
 import { db } from "../../firebase";
 import { handleAlert } from "../../functions/handleAlert";
+import { handleFileSize } from "../../functions/handleFile";
+import useMediaHandler from "../../hooks/useMediaHandler";
 import useRoom from "../../hooks/useRoom";
 
 const useSendMessageSubmit = () => {
   const { user } = useContext(AuthContext);
-  const { chatter, messages, setMessages } = useContext(AppContext);
-  const { handleGetMessages } = useRoom();
+  const {
+    handleCloseMessageModal,
+    handleOpenBackDropModal,
+    handleCloseBackDropModal,
+    handleCloseMediaModal,
+  } = useContext(ModalsContext);
+  const {
+    media,
+    chatter,
+    messages,
+    setMessages,
+    editableMessage,
+    setSelectedMessages,
+  } = useContext(AppContext);
+  const { handleGetMessages, handleUpdateMessage } = useRoom();
+  const { handleUploadMedia } = useMediaHandler();
 
   const handleError = () => {
     const newMessages = [...messages];
@@ -34,10 +51,12 @@ const useSendMessageSubmit = () => {
     const messageData = {
       id: messageUID,
       chat: chatUID,
-      message,
+      ...values,
       sender: user.id,
       receiver: chatter.id,
       seen: false,
+      seenAt: "",
+      editAt: "",
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -81,7 +100,35 @@ const useSendMessageSubmit = () => {
     }
   };
 
-  return { handleSendMessage };
+  const handleEditMessage = async (values, resetForm) => {
+    const { message } = values;
+    handleUpdateMessage(editableMessage.id, { message, editAt: new Date() });
+    handleCloseMessageModal();
+    resetForm();
+    setSelectedMessages([]);
+  };
+
+  const handleSendMedia = async (values, resetForm) => {
+    handleOpenBackDropModal();
+    const mediaURL = await handleUploadMedia(media?.uri);
+    await handleSendMessage(
+      {
+        ...values,
+        media: {
+          url: mediaURL,
+          size: handleFileSize(media?.fileSize || media?.size),
+          name: media?.fileName || media?.name,
+          type: media?.mimeType,
+        },
+      },
+      resetForm
+    );
+    resetForm();
+    handleCloseBackDropModal();
+    handleCloseMediaModal();
+  };
+
+  return { handleSendMessage, handleEditMessage, handleSendMedia };
 };
 
 export default useSendMessageSubmit;

@@ -78,6 +78,26 @@ const ModalsProvider = ({ children }) => {
     setOpenBackDropModal(false);
   };
 
+  const [openMessageModal, setOpenMessageModal] = useState(false);
+
+  const handleOpenMessageModal = () => {
+    setOpenMessageModal(true);
+  };
+
+  const handleCloseMessageModal = () => {
+    setOpenMessageModal(false);
+  };
+
+  const [openMediaModal, setOpenMediaModal] = useState(false);
+
+  const handleOpenMediaModal = () => {
+    setOpenMediaModal(true);
+  };
+
+  const handleCloseMediaModal = () => {
+    setOpenMediaModal(false);
+  };
+
   return (
     <ModalsContext.Provider
       value={{
@@ -102,6 +122,12 @@ const ModalsProvider = ({ children }) => {
         openBackDropModal,
         handleCloseBackDropModal,
         handleOpenBackDropModal,
+        openMessageModal,
+        handleOpenMessageModal,
+        handleCloseMessageModal,
+        openMediaModal,
+        handleOpenMediaModal,
+        handleCloseMediaModal,
       }}
     >
       {children}

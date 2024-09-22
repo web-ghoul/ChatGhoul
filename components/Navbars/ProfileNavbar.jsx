@@ -7,17 +7,17 @@ import NavbarContainer from "./NavbarContainer";
 const ProfileNavbar = () => {
   return (
     <NavbarContainer>
-      <View
-        className={`flex-1 justify-start items-center flex-row`}
-        style={{ gap: wp(4) }}
-      >
-        <Link href={"/app/chat"}>
+      <Link href={"/app/chat"}>
+        <View
+          className={`flex-1 justify-start items-center flex-row`}
+          style={{ gap: wp(4) }}
+        >
           <AntDesign name="arrowleft" size={24} color="#fff" />
-        </Link>
-        <Text style={{ fontSize: wp(6) }} className={`text-white font-[800]`}>
-          Profile
-        </Text>
-      </View>
+          <Text style={{ fontSize: wp(6) }} className={`text-white font-[800]`}>
+            Profile
+          </Text>
+        </View>
+      </Link>
     </NavbarContainer>
   );
 };

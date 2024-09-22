@@ -25,7 +25,7 @@ const UserView = ({ receiver }) => {
       <TouchableOpacity
         onPress={() => {
           setImageURL(receiver.avatar);
-          handleOpenShowImageModal({ title: receiver.username, edit: false });
+          handleOpenShowImageModal();
           setChatter(receiver);
         }}
       >
