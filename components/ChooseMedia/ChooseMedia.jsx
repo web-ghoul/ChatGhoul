@@ -1,23 +1,23 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 import { Zoomable } from '@likashefqet/react-native-image-zoom';
 import React, { useContext } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import { AppContext } from '../../contexts/AppContext';
-import { AuthContext } from '../../contexts/AuthContext';
 import { ModalsContext } from '../../contexts/ModalsContext';
-import { handleMessageTime } from '../../functions/handleDate';
+import useMediaHandler from '../../hooks/useMediaHandler';
 import { globalStyles } from '../../styles/globalStyles';
-import UserView from '../UserView/UserView';
 
-const ViewMedia = () => {
-  const { media, message, chatter } = useContext(AppContext);
-  const { user } = useContext(AuthContext);
-  const { handleCloseViewMediaModal } = useContext(ModalsContext);
+const ChooseMedia = () => {
+  const { media, setMedia } = useContext(AppContext);
+  const { handleCloseChooseMediaModal } = useContext(ModalsContext);
+  const { handleChooseMedia } = useMediaHandler();
+  console.log(media);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -27,27 +27,32 @@ const ViewMedia = () => {
           style={[globalStyles.container, { paddingVertical: hp(2) }]}
         >
           <TouchableOpacity
-            onPress={handleCloseViewMediaModal}
+            onPress={handleCloseChooseMediaModal}
             className={`justify-start items-center flex-row`}
             style={{ gap: wp(2) }}
           >
             <AntDesign name="close" size={24} color="#fff" />
           </TouchableOpacity>
-          <View>
-            <UserView
-              receiver={message.sender === user.id ? user : chatter}
-              helperText={handleMessageTime(
-                message?.editAt ? message.editAt : message.updatedAt,
-              )}
-              avatarSize={10}
-            />
-          </View>
+          {media && (
+            <TouchableOpacity
+              onPress={async () => {
+                if (media.type === 'image') {
+                  const path = await handleChooseMedia('image');
+                  setMedia(path);
+                }
+              }}
+              className={`justify-start items-center flex-row`}
+              style={{ gap: wp(2) }}
+            >
+              <Feather name="edit-2" size={24} color="#fff" />
+            </TouchableOpacity>
+          )}
         </View>
         {media && (
           <Zoomable>
-            {media?.type.split('/')[0] === 'image' ? (
+            {media?.type === 'image' ? (
               <Image
-                source={{ uri: media.url }}
+                source={{ uri: media.uri }}
                 resizeMode="contain"
                 style={{
                   width: '100%',
@@ -56,12 +61,12 @@ const ViewMedia = () => {
               />
             ) : (
               <View className={`flex-1 justify-center items-center`}>
-                {/* <Text
+                <Text
                   className={`text-white text-center justify-center`}
                   style={{ fontSize: hp(3) }}
                 >
                   {media.name}
-                </Text> */}
+                </Text>
               </View>
             )}
           </Zoomable>
@@ -71,4 +76,4 @@ const ViewMedia = () => {
   );
 };
 
-export default ViewMedia;
+export default ChooseMedia;

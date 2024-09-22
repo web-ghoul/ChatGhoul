@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 export const AppContext = createContext();
 
@@ -6,10 +6,11 @@ const AppProvider = ({ children }) => {
   const [users, setUsers] = useState(null);
   const [chatter, setChatter] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [editUserFormType, setEditUserFormType] = useState("");
-  const [imageURL, setImageURL] = useState("");
+  const [message, setMessage] = useState(null);
+  const [editUserFormType, setEditUserFormType] = useState('');
+  const [imageURL, setImageURL] = useState('');
   const [media, setMedia] = useState(null);
-  const [photoPath, setPhotoPath] = useState("");
+  const [photoPath, setPhotoPath] = useState('');
   const [selectedMessages, setSelectedMessages] = useState([]);
   const [editableMessage, setEditableMessage] = useState(null);
 
@@ -24,6 +25,8 @@ const AppProvider = ({ children }) => {
         setChatter,
         messages,
         setMessages,
+        message,
+        setMessage,
         imageURL,
         setImageURL,
         media,

@@ -1,13 +1,13 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useContext } from "react";
-import { AppContext } from "../../contexts/AppContext";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ModalsContext } from "../../contexts/ModalsContext";
-import { db } from "../../firebase";
-import { handleAlert } from "../../functions/handleAlert";
-import { handleFileSize } from "../../functions/handleFile";
-import useMediaHandler from "../../hooks/useMediaHandler";
-import useRoom from "../../hooks/useRoom";
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useContext } from 'react';
+import { AppContext } from '../../contexts/AppContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ModalsContext } from '../../contexts/ModalsContext';
+import { db } from '../../firebase';
+import { handleAlert } from '../../functions/handleAlert';
+import { handleFileSize } from '../../functions/handleFile';
+import useMediaHandler from '../../hooks/useMediaHandler';
+import useRoom from '../../hooks/useRoom';
 
 const useSendMessageSubmit = () => {
   const { user } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const useSendMessageSubmit = () => {
     handleCloseMessageModal,
     handleOpenBackDropModal,
     handleCloseBackDropModal,
-    handleCloseMediaModal,
+    handleCloseChooseMediaModal,
   } = useContext(ModalsContext);
   const {
     media,
@@ -32,7 +32,7 @@ const useSendMessageSubmit = () => {
     const newMessages = [...messages];
     newMessages.pop();
     setMessages(newMessages);
-    handleAlert("Ops ❌", "Something Wrong", "error");
+    handleAlert('Ops ❌', 'Something Wrong', 'error');
   };
 
   const handleSendMessage = async (values, resetForm) => {
@@ -42,12 +42,12 @@ const useSendMessageSubmit = () => {
     const { message } = values;
     const chatUID =
       user.id > chatter.id
-        ? user.id + "_" + chatter.id
-        : chatter.id + "_" + user.id;
+        ? user.id + '_' + chatter.id
+        : chatter.id + '_' + user.id;
     const messageUID =
-      chatUID + "_" + message + "_" + String(Math.random() * Math.random());
-    const chatRef = doc(db, "chats", chatUID);
-    const messageRef = doc(db, "messages", messageUID);
+      chatUID + '_' + message + '_' + String(Math.random() * Math.random());
+    const chatRef = doc(db, 'chats', chatUID);
+    const messageRef = doc(db, 'messages', messageUID);
     const messageData = {
       id: messageUID,
       chat: chatUID,
@@ -55,8 +55,8 @@ const useSendMessageSubmit = () => {
       sender: user.id,
       receiver: chatter.id,
       seen: false,
-      seenAt: "",
-      editAt: "",
+      seenAt: '',
+      editAt: '',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -91,12 +91,12 @@ const useSendMessageSubmit = () => {
                 handleError();
               });
           })
-          .catch((err) => {
+          .catch(err => {
             handleError();
           });
       }
     } catch (error) {
-      console.error("Error creating or updating document: ", error);
+      console.error('Error creating or updating document: ', error);
     }
   };
 
@@ -121,11 +121,11 @@ const useSendMessageSubmit = () => {
           type: media?.mimeType,
         },
       },
-      resetForm
+      resetForm,
     );
     resetForm();
     handleCloseBackDropModal();
-    handleCloseMediaModal();
+    handleCloseChooseMediaModal();
   };
 
   return { handleSendMessage, handleEditMessage, handleSendMedia };

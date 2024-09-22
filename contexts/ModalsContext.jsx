@@ -1,6 +1,5 @@
-import { createContext, useContext, useRef, useState } from "react";
-import { Animated } from "react-native";
-import { AppContext } from "./AppContext";
+import { createContext, useContext, useState } from 'react';
+import { AppContext } from './AppContext';
 
 export const ModalsContext = createContext();
 
@@ -9,7 +8,7 @@ const ModalsProvider = ({ children }) => {
 
   const [openUserModal, setOpenUserModal] = useState(false);
 
-  const handleOpenUserModal = (type) => {
+  const handleOpenUserModal = type => {
     setEditUserFormType(type);
     setOpenUserModal(true);
   };
@@ -88,14 +87,24 @@ const ModalsProvider = ({ children }) => {
     setOpenMessageModal(false);
   };
 
-  const [openMediaModal, setOpenMediaModal] = useState(false);
+  const [openChooseMediaModal, setOpenChooseMediaModal] = useState(false);
 
-  const handleOpenMediaModal = () => {
-    setOpenMediaModal(true);
+  const handleOpenChooseMediaModal = () => {
+    setOpenChooseMediaModal(true);
   };
 
-  const handleCloseMediaModal = () => {
-    setOpenMediaModal(false);
+  const handleCloseChooseMediaModal = () => {
+    setOpenChooseMediaModal(false);
+  };
+
+  const [openViewMediaModal, setOpenViewMediaModal] = useState(false);
+
+  const handleOpenViewMediaModal = () => {
+    setOpenViewMediaModal(true);
+  };
+
+  const handleCloseViewMediaModal = () => {
+    setOpenViewMediaModal(false);
   };
 
   return (
@@ -125,9 +134,12 @@ const ModalsProvider = ({ children }) => {
         openMessageModal,
         handleOpenMessageModal,
         handleCloseMessageModal,
-        openMediaModal,
-        handleOpenMediaModal,
-        handleCloseMediaModal,
+        openChooseMediaModal,
+        handleOpenChooseMediaModal,
+        handleCloseChooseMediaModal,
+        openViewMediaModal,
+        handleOpenViewMediaModal,
+        handleCloseViewMediaModal,
       }}
     >
       {children}

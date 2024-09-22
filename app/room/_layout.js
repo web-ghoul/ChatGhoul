@@ -1,30 +1,31 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import RoomNavbar from "../../components/Navbars/RoomNavbar";
-import TabIcon from "../../components/TabIcon/TabIcon";
-import CameraModal from "../../modals/CameraModal";
-import MediaModal from "../../modals/MediaModal";
-import MessageModal from "../../modals/MessageModal";
+} from 'react-native-responsive-screen';
+import RoomNavbar from '../../components/Navbars/RoomNavbar';
+import TabIcon from '../../components/TabIcon/TabIcon';
+import CameraModal from '../../modals/CameraModal';
+import ChooseMediaModal from '../../modals/ChooseMediaModal';
+import MessageModal from '../../modals/MessageModal';
+import ViewMediaModal from '../../modals/ViewMediaModal';
 
 const _layout = () => {
   return (
     <View className={`flex-1 bg-black`}>
       <Stack
         screenOptions={{
-          tabBarActiveTintColor: "#fff",
-          tabBarInactiveTintColor: "#fff",
+          tabBarActiveTintColor: '#fff',
+          tabBarInactiveTintColor: '#fff',
           tabBarStyle: {
-            backgroundColor: "#162832",
-            borderColor: "#2d5872",
+            backgroundColor: '#162832',
+            borderColor: '#2d5872',
             height: hp(12),
-            justifyContent: "center",
-            flexDirection: "row",
+            justifyContent: 'center',
+            flexDirection: 'row',
             paddingHorizontal: wp(4),
             paddingTop: 10,
             paddingBottom: 10,
@@ -32,7 +33,7 @@ const _layout = () => {
           tabBarShowLabel: true,
           tabBarLabelStyle: {
             fontSize: wp(3.4),
-            fontWeight: "900",
+            fontWeight: '900',
           },
         }}
       >
@@ -42,9 +43,9 @@ const _layout = () => {
             header: () => <RoomNavbar />,
             tabBarBadge: 2,
             tabBarBadgeStyle: {
-              backgroundColor: "#fff",
-              color: "#12b0be",
-              fontWeight: "900",
+              backgroundColor: '#fff',
+              color: '#12b0be',
+              fontWeight: '900',
               fontSize: wp(3),
             },
             tabBarIcon: ({ focused }) => (
@@ -62,7 +63,8 @@ const _layout = () => {
       <StatusBar style="light" />
       <CameraModal />
       <MessageModal />
-      <MediaModal />
+      <ChooseMediaModal />
+      <ViewMediaModal />
     </View>
   );
 };

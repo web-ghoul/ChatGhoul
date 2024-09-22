@@ -1,19 +1,17 @@
-import { View, Text, ImageBackground, FlatList } from "react-native";
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
-import Forms from "../../forms/Forms";
+import AnimatedLottieView from 'lottie-react-native';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { FlatList, ImageBackground, Text, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import useRoom from "../../hooks/useRoom";
-import AnimatedLottieView from "lottie-react-native";
-import { AppContext } from "../../contexts/AppContext";
-import Message from "../../components/Message/Message";
-import { globalStyles } from "../../styles/globalStyles";
-import { AuthContext } from "../../contexts/AuthContext";
-import FilesModal from "../../modals/FilesModal";
-import MessagesDate from "../../components/Message/MessagesDate";
-import { useLocalSearchParams } from "expo-router";
+} from 'react-native-responsive-screen';
+import Message from '../../components/Message/Message';
+import MessagesDate from '../../components/Message/MessagesDate';
+import { AppContext } from '../../contexts/AppContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import Forms from '../../forms/Forms';
+import useRoom from '../../hooks/useRoom';
+import FilesModal from '../../modals/FilesModal';
 
 const Room = () => {
   const { handleGetMessages } = useRoom();
@@ -22,7 +20,7 @@ const Room = () => {
   const flatListRef = useRef(null);
   const [flatListHeight, setFlatListHeight] = useState(0);
 
-  const handleFlatListLayout = (event) => {
+  const handleFlatListLayout = event => {
     const { height } = event.nativeEvent.layout;
     setFlatListHeight(height);
   };
@@ -36,7 +34,7 @@ const Room = () => {
     }
   };
 
-  const groupMessagesByDate = (messages) => {
+  const groupMessagesByDate = messages => {
     return messages.reduce((acc, message) => {
       const date = new Date(message.createdAt.seconds * 1000).toDateString();
       if (!acc[date]) {
@@ -49,7 +47,7 @@ const Room = () => {
 
   const groupedMessages = groupMessagesByDate(messages);
 
-  const messageSections = Object.keys(groupedMessages).map((date) => ({
+  const messageSections = Object.keys(groupedMessages).map(date => ({
     date,
     messages: groupedMessages[date],
   }));
@@ -61,7 +59,7 @@ const Room = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/chat_back.png")}
+      source={require('../../assets/images/chat_back.png')}
       className={`bg-primary flex-1 justify-stretch items-stretch content-between self-stretch flex-col relative`}
       resizeMode="cover"
     >
@@ -69,7 +67,7 @@ const Room = () => {
         className={`absolute left-0 top-0 right-0 `}
         style={{
           backgroundColor:
-            messages.length > 0 ? "rgba(0,0,0,0.65)" : "rgba(0,0,0,0.8)",
+            messages.length > 0 ? 'rgba(0,0,0,0.65)' : 'rgba(0,0,0,0.8)',
           width: wp(100),
           height: hp(100),
         }}
@@ -87,13 +85,13 @@ const Room = () => {
             <AnimatedLottieView
               source={
                 !loading
-                  ? require("../../assets/lotties/start_chatting.json")
-                  : require("../../assets/lotties/message.json")
+                  ? require('../../assets/lotties/start_chatting.json')
+                  : require('../../assets/lotties/message.json')
               }
               style={{
                 width: wp(80),
                 height: wp(80),
-                position: "absolute",
+                position: 'absolute',
               }}
               autoPlay
               loop
@@ -103,7 +101,7 @@ const Room = () => {
             className={`text-center text-white font-[800] `}
             style={{ fontSize: hp(4) }}
           >
-            {loading ? "Loading..." : "Start Chatting"}
+            {loading ? 'Loading...' : 'Start Chatting'}
           </Text>
         </View>
       ) : (
@@ -119,12 +117,12 @@ const Room = () => {
               }}
             >
               <MessagesDate date={item.date} />
-              {item.messages.map((message, index) => (
-                <Message key={index} message={message} index={index} />
+              {item.messages.map((message, i) => (
+                <Message key={i} message={message} index={i} />
               ))}
             </View>
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           onLayout={handleFlatListLayout}
           contentContainerStyle={[
             {
@@ -132,13 +130,12 @@ const Room = () => {
               paddingBottom: hp(10),
               gap: hp(1),
             },
-            globalStyles.container,
           ]}
           onContentSizeChange={handleScrollToEnd}
         />
       )}
       <View className={`absolute bottom-0 left-0 w-full`}>
-        <Forms type={"sendMessage"} />
+        <Forms type={'sendMessage'} />
       </View>
       <FilesModal />
     </ImageBackground>
